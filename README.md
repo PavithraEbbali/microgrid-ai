@@ -1,4 +1,4 @@
-# AI Energy Forecast Platform
+# MICROGRID AI
 
 A modern, professional web platform that predicts electricity demand based on real-time weather data using artificial intelligence. Built with React (Vite) frontend, FastAPI backend, and machine learning.
 
@@ -309,89 +309,6 @@ CMD ["nginx", "-g", "daemon off;"]
 ### APIs & Services
 - Open-Meteo API (weather data)
 
-## 🤝 Contributing
-
-Contributions are welcome! Areas for improvement:
-- Add historical energy data integration
-- Implement user preferences and savings tracking
-- Add mobile app (React Native)
-- Multi-language support
-- More granular location data
-- Integration with smart home devices
-
 ## 📝 License
 
 This project is open source and available under the MIT License.
-
-## 🎓 Educational Value
-
-This project demonstrates:
-- Full-stack web development
-- Machine learning model training and deployment
-- API design and integration
-- React component architecture
-- FastAPI best practices
-- Real-time data processing
-- Responsive web design
-- Data visualization
-
-## 🐛 Troubleshooting
-
-### Backend won't connect
-- Ensure FastAPI server is running on port 8000
-- Check `http://127.0.0.1:8000/health`
-- Verify no firewall blocking
-
-### Weather data not loading
-- Check internet connection
-- Verify location services enabled
-- Check Open-Meteo API status
-
-### ML model not found
-- Run `python ai_model/train_model.py` to create model
-- Verify model file exists: `ai_model/energy_model.pkl`
-
-### Charts not displaying
-- Check browser console for errors (F12)
-- Verify Recharts is installed: `npm list recharts`
-- Clear cache and reload
-
-## 🚀 Future Enhancements
-
-- [ ] Historical data tracking
-- [ ] User preferences and customization
-- [ ] Comparative analysis across regions
-- [ ] Mobile app (iOS/Android)
-- [ ] Integration with utility APIs
-- [ ] Predictive cost calculator
-- [ ] Community energy sharing features
-- [ ] IoT device integration
-
-## ❓ FAQ
-
-**Q: How accurate are the predictions?**
-A: Our model achieves ~99.2% accuracy on test data, with R² score of ~0.92.
-
-**Q: Is my location data safe?**
-A: Yes! Location is only used to fetch weather data. No personal data is stored.
-
-**Q: Can I use this offline?**
-A: Weather data requires internet. Dashboard works with cached data.
-
-**Q: Does this work worldwide?**
-A: Yes! Works anywhere with internet and weather data available.
-
-**Q: How often is data updated?**
-A: Dashboard updates every 10 seconds with fresh predictions.
-
-## 📞 Support
-
-For issues, questions, or suggestions:
-1. Check the FAQ section
-2. Review GitHub issues
-3. Create a detailed bug report
-4. Submit feature requests
-
----
-
-**Made with ⚡ for smarter energy management**
