@@ -19,7 +19,7 @@ import {
 import OnboardingTutorial from "../components/OnboardingTutorial";
 import "../styles/Dashboard.css";
 
-const API_BASE = "https://microgrid-ai.onrender.com";
+const API_BASE = "http://127.0.0.1:8000";
 
 function Dashboard() {
   const [prediction, setPrediction] = useState(null);
