@@ -16,7 +16,7 @@ function Pricing() {
         "24-hour forecast",
         "Peak demand detection",
         "Basic recommendations",
-        "Updated every 60 seconds"
+        "Updated every 5 minutes"
       ],
       cta: "Get Started",
       popular: false,

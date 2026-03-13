@@ -120,7 +120,7 @@ const handleEnableLocation = () => {
     // Auto-refresh every 60 seconds instead of 10 to give users time to read
     const interval = setInterval(() => {
       getPrediction();
-    }, 60000);
+    }, 300000);
     return () => clearInterval(interval);
   }, []);
 
