@@ -17,6 +17,7 @@ import {
   Radar
 } from "recharts";
 import OnboardingTutorial from "../components/OnboardingTutorial";
+import ChatbotWidget from "../components/ChatbotWidget";
 import "../styles/Dashboard.css";
 
 const API_BASE = "http://127.0.0.1:8000";
@@ -36,10 +37,12 @@ function Dashboard() {
     return !localStorage.getItem("hasSeenOnboarding");
   });
 
-  // Add these state declarations near your other useState calls
-const [locationAttempted, setLocationAttempted] = useState(false);
-const [showLocationPermission, setShowLocationPermission] = useState(false);
+  const efficiency = analysis?.efficiency_score || 50;
 
+  const optimizationPotential = Math.max(10, 100 - efficiency);
+
+  const monthlySavings = (optimizationPotential * 15).toFixed(0);
+  const annualSavings = (optimizationPotential * 15 * 12).toFixed(0);
 
   const [hasPermission, setHasPermission] = useState(false);
 
@@ -117,7 +120,7 @@ const handleEnableLocation = () => {
 
   useEffect(() => {
     getPrediction();
-    // Auto-refresh every 60 seconds instead of 10 to give users time to read
+    // Auto-refresh every 5 minutes instead of 60 seconds to give users time to read
     const interval = setInterval(() => {
       getPrediction();
     }, 300000);
@@ -486,13 +489,13 @@ const handleEnableLocation = () => {
               <div className="savings-item">
                 <span className="savings-label">Monthly Bill Reduction</span>
                 <span className="savings-value">
-                  {(300 * (analysis.efficiency_score / 100) * 0.25).toFixed(0)}₹
+                  {monthlySavings}₹
                 </span>
               </div>
               <div className="savings-item">
                 <span className="savings-label">Annual Savings</span>
                 <span className="savings-value">
-                  {(3600 * (analysis.efficiency_score / 100) * 0.25).toFixed(0)}₹
+                  {annualSavings}₹
                 </span>
               </div>
               <div className="savings-item">
@@ -554,8 +557,11 @@ const handleEnableLocation = () => {
           </div>
         </div>
       </div>
+      {analysis && weather && (
+        <ChatbotWidget analysis={analysis} weather={weather} />
+      )}
     </div>
-  );
+  ); 
 }
 
 export default Dashboard;

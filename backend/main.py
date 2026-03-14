@@ -31,11 +31,9 @@ class EnergyInput(BaseModel):
     hour: int
     day_of_week: int
 
-
 class LocationInput(BaseModel):
     latitude: float
     longitude: float
-
 
 @app.post("/weather")
 async def get_weather(location: LocationInput):
@@ -144,6 +142,45 @@ def analyze_energy(data: EnergyInput):
         solar_potential = 0
         solar_level = "NONE"
 
+
+    # Smarter efficiency score calculation
+    efficiency_score = 70
+
+    # Demand impact
+    if demand_level == "HIGH":
+        efficiency_score -= 25
+    elif demand_level == "MEDIUM":
+        efficiency_score -= 10
+    else:
+        efficiency_score += 5
+
+    # Solar potential impact
+    if solar_potential > 70:
+        efficiency_score += 15
+    elif solar_potential > 40:
+        efficiency_score += 8
+    elif solar_potential > 20:
+        efficiency_score += 3
+
+    # Temperature impact
+    if data.temperature > 35:
+        efficiency_score -= 10
+    elif data.temperature > 30:
+        efficiency_score -= 5
+    elif data.temperature < 10:
+        efficiency_score -= 5
+
+    # Humidity impact
+    if data.humidity > 80:
+        efficiency_score -= 5
+
+    # Wind benefit
+    if data.wind_speed > 12:
+        efficiency_score += 5
+
+    # Clamp final score
+    efficiency_score = max(20, min(95, efficiency_score))
+
     
     # Generate smart recommendations
     recommendations = []
@@ -215,5 +252,56 @@ def analyze_energy(data: EnergyInput):
         "wind_speed": data.wind_speed,
         "cloud_cover": data.cloud_cover,
         "recommendations": recommendations,
-        "efficiency_score": round((100 - prediction) / 100 * 100, 1)
+        "efficiency_score": efficiency_score,
     }
+
+class ChatRequest(BaseModel):
+    message: str
+    energy_context: dict
+
+
+from openai import OpenAI
+
+client = OpenAI(api_key=("GROQ_API_KEY"),
+                base_url="https://api.groq.com/openai/v1")
+
+class ChatRequest(BaseModel):
+    message: str
+    energy_context: dict
+
+
+@app.post("/chat")
+async def chat(request: ChatRequest):
+
+    ctx = request.energy_context
+
+    system_prompt = f"""
+You are GridSense AI, an energy optimization assistant.
+
+Current microgrid data:
+Demand: {ctx.get('predicted_energy')} kWh ({ctx.get('demand_level')})
+Solar: {ctx.get('solar_potential')}%
+Weather: {ctx.get('temperature')}°C, {ctx.get('humidity')}% humidity
+
+INSTRUCTIONS:
+1. If the user is just greeting you (e.g., "hi", "hello"): Respond with a brief, friendly greeting and ask how you can help them optimize their energy today. Do NOT give tips yet.
+2. If the user asks for advice, how to save energy, or what to do: Provide exactly 3 quick tips based on the data.
+
+STRICT FORMATTING RULES(ONLY WHEN GIVING TIPS):
+- DO NOT use asterisks (*) or any Markdown formatting.
+- Number your points 1, 2, and 3.
+- Keep each point under 12 words.
+- DO NOT use introductory phrases. Just start with number 1.
+"""
+
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": request.message}
+        ]
+    )
+
+    reply = response.choices[0].message.content
+
+    return {"reply": reply}
