@@ -38,7 +38,7 @@ AI Energy Forecast Platform/
 │   │   ├── components/
 │   │   │   └── Navbar.jsx                # Navigation component
 |   |   |   ├── ChatbotWidget.jsx         # Chatbot
-│   │   │   └──ChatbotWidget.module.css  #chatbot styling
+│   │   │   └──ChatbotWidget.module.css   #chatbot styling
 |   |   |      
 │   │   ├── styles/                       # CSS for all components
 │   │   └── App.jsx                       # Main app component
