@@ -5,6 +5,7 @@ import requests
 import numpy as np
 from datetime import datetime
 from ai_model.predict import predict_energy
+import os
 
 app = FastAPI()
 
