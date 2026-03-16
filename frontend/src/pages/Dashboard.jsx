@@ -37,7 +37,6 @@ function Dashboard() {
     return !localStorage.getItem("hasSeenOnboarding");
   });
 
-  const [showLocationPermission, setShowLocationPermission] = useState(false);
 
   const efficiency = analysis?.efficiency_score || 50;
 
