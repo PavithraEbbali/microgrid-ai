@@ -20,7 +20,7 @@ import OnboardingTutorial from "../components/OnboardingTutorial";
 import ChatbotWidget from "../components/ChatbotWidget";
 import "../styles/Dashboard.css";
 
-const API_BASE = 'http://13.53.126.7:8000';
+const API_BASE = '/api';
 
 function Dashboard() {
   const [prediction, setPrediction] = useState(null);
@@ -37,7 +37,8 @@ function Dashboard() {
     return !localStorage.getItem("hasSeenOnboarding");
   });
 
-
+  const [showLocationPermission, setShowLocationPermission] = useState(false);
+  
   const efficiency = analysis?.efficiency_score || 50;
 
   const optimizationPotential = Math.max(10, 100 - efficiency);

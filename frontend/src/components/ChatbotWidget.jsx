@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import styles from './ChatbotWidget.module.css';
 
-const API_BASE = 'http://13.53.126.7:8000';
+const API_BASE = '/api';
 
 const ChatbotWidget = ({ analysis = {}, weather = {} }) => {
   const [messages, setMessages] = useState([]);
