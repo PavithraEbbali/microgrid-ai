@@ -22,7 +22,7 @@ import "../styles/Dashboard.css";
 
 const API_BASE = '/api';
 
-function Dashboard() {
+function Dashboard({ setChatbotAnalysis, setChatbotWeather }) {
   const [prediction, setPrediction] = useState(null);
   const [analysis, setAnalysis] = useState(null);
   const [location, setLocation] = useState(null);
@@ -140,6 +140,7 @@ const handleEnableLocation = () => {
 
       const weatherData = weatherResponse.data.current;
       setWeather(weatherData);
+      setChatbotWeather(weatherData);
 
       // Get current time
       const now = new Date();
@@ -161,6 +162,7 @@ const handleEnableLocation = () => {
       );
 
       setAnalysis(analysisResponse.data);
+      setChatbotAnalysis(analysisResponse.data);
       setPrediction(analysisResponse.data.predicted_energy);
       setLastUpdate(new Date());
 
