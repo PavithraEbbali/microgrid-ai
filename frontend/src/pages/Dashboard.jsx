@@ -491,13 +491,13 @@ const handleEnableLocation = () => {
               <div className="savings-item">
                 <span className="savings-label">Monthly Bill Reduction</span>
                 <span className="savings-value">
-                  {monthlySavings}₹
+                  ₹{monthlySavings}
                 </span>
               </div>
               <div className="savings-item">
                 <span className="savings-label">Annual Savings</span>
                 <span className="savings-value">
-                  {annualSavings}₹
+                  ₹{annualSavings}
                 </span>
               </div>
               <div className="savings-item">
@@ -559,9 +559,6 @@ const handleEnableLocation = () => {
           </div>
         </div>
       </div>
-      {analysis && weather && (
-        <ChatbotWidget analysis={analysis} weather={weather} />
-      )}
     </div>
   ); 
 }

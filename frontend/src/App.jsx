@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Pricing from "./pages/Pricing";
+import ChatbotWidget from "./components/ChatbotWidget";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/about" element={<About />} />
 
       </Routes>
+      <ChatbotWidget />
 
     </BrowserRouter>
   );
